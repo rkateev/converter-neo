@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050505" />
+    <title>Converter Neo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <section class="title-block">
+          <h1 data-i18n="appName">Converter Neo</h1>
+          <div class="status-line">
+            <span id="lastUpdated">--</span>
+            <span id="offlineBadge" class="offline-badge" hidden data-i18n="offline">Offline</span>
+          </div>
+        </section>
+        <nav class="actions" aria-label="App actions">
+          <button class="icon-button" id="refreshButton" type="button" aria-label="Refresh rates" title="Refresh rates">
+            <span class="icon">↻</span>
+          </button>
+          <button class="icon-button" id="ratesButton" type="button" aria-label="Rates" title="Rates">
+            <span class="icon">⌂</span>
+          </button>
+          <button class="icon-button" id="settingsButton" type="button" aria-label="Settings" title="Settings">
+            <span class="icon">⚙</span>
+          </button>
+        </nav>
+      </header>
+
+      <section class="currency-list" id="currencyList" aria-label="Currency converter rows"></section>
+
+      <section class="keypad" aria-label="Calculator keypad">
+        <button type="button" data-key="clear" class="key key-muted">C</button>
+        <button type="button" data-key="backspace" class="key key-muted">←</button>
+        <button type="button" data-key="percent" class="key key-muted">%</button>
+        <button type="button" data-key="op:divide" class="key key-op">÷</button>
+
+        <button type="button" data-key="7" class="key">7</button>
+        <button type="button" data-key="8" class="key">8</button>
+        <button type="button" data-key="9" class="key">9</button>
+        <button type="button" data-key="op:multiply" class="key key-op">×</button>
+
+        <button type="button" data-key="4" class="key">4</button>
+        <button type="button" data-key="5" class="key">5</button>
+        <button type="button" data-key="6" class="key">6</button>
+        <button type="button" data-key="op:subtract" class="key key-op">−</button>
+
+        <button type="button" data-key="1" class="key">1</button>
+        <button type="button" data-key="2" class="key">2</button>
+        <button type="button" data-key="3" class="key">3</button>
+        <button type="button" data-key="op:add" class="key key-op">+</button>
+
+        <button type="button" data-key="0" class="key key-zero">0</button>
+        <button type="button" data-key="decimal" class="key">,</button>
+        <button type="button" data-key="equals" class="key key-op">=</button>
+      </section>
+    </main>
+
+    <dialog id="currencyDialog" class="sheet">
+      <form method="dialog">
+        <header class="sheet-header">
+          <h2 data-i18n="chooseCurrency">Choose currency</h2>
+          <button type="submit" class="sheet-close" aria-label="Close">×</button>
+        </header>
+        <div class="currency-options" id="currencyOptions"></div>
+      </form>
+    </dialog>
+
+    <dialog id="settingsDialog" class="sheet">
+      <form method="dialog">
+        <header class="sheet-header">
+          <h2 data-i18n="settings">Settings</h2>
+          <button type="submit" class="sheet-close" aria-label="Close">×</button>
+        </header>
+        <section class="settings-section">
+          <h3 data-i18n="theme">Theme</h3>
+          <div class="choice-grid" id="themeChoices"></div>
+        </section>
+        <section class="settings-section">
+          <h3 data-i18n="language">Language</h3>
+          <div class="choice-grid" id="languageChoices"></div>
+        </section>
+      </form>
+    </dialog>
+
+    <dialog id="ratesDialog" class="sheet">
+      <form method="dialog">
+        <header class="sheet-header">
+          <h2 data-i18n="rates">Rates</h2>
+          <button type="submit" class="sheet-close" aria-label="Close">×</button>
+        </header>
+        <div class="rates-panel" id="ratesPanel"></div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

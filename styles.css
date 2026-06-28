@@ -1,0 +1,387 @@
+:root {
+  color-scheme: dark;
+  --bg: #050505;
+  --text: #f4f4f4;
+  --muted: #9a9a9a;
+  --panel: #2f2f2f;
+  --panel-strong: #3a3524;
+  --panel-soft: #b8b8b8;
+  --accent: #ffa216;
+  --accent-text: #ffffff;
+  --good: #2ed16a;
+  --danger: #ff6b57;
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --text: #161616;
+  --muted: #68707a;
+  --panel: #ffffff;
+  --panel-strong: #fff1d7;
+  --panel-soft: #d9dde3;
+  --accent: #f59e0b;
+  --accent-text: #171717;
+  --good: #128b43;
+  --danger: #d6332f;
+}
+
+[data-theme="ocean"] {
+  --bg: #071417;
+  --text: #f0fbff;
+  --muted: #86a9b2;
+  --panel: #173136;
+  --panel-strong: #1e4949;
+  --panel-soft: #b3d0d6;
+  --accent: #00b8d9;
+  --accent-text: #032126;
+  --good: #35d38b;
+}
+
+[data-theme="forest"] {
+  --bg: #08110c;
+  --text: #f2f7ee;
+  --muted: #8fa08d;
+  --panel: #213027;
+  --panel-strong: #37412b;
+  --panel-soft: #bfd0ba;
+  --accent: #7fc241;
+  --accent-text: #071006;
+  --good: #a5e052;
+}
+
+[data-theme="rose"] {
+  --bg: #16090f;
+  --text: #fff5f8;
+  --muted: #ba9aa6;
+  --panel: #33222a;
+  --panel-strong: #4a2e36;
+  --panel-soft: #dac0ca;
+  --accent: #ff6f91;
+  --accent-text: #2a0711;
+  --good: #68d391;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(100vw, 480px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: max(18px, env(safe-area-inset-top)) 18px max(20px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 18px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title-block h1 {
+  margin: 0 0 2px;
+  font-size: 25px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.status-line {
+  min-height: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--good);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.offline-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
+  color: var(--danger);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+.icon-button,
+.sheet-close {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: color-mix(in srgb, var(--accent) 70%, white);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.currency-list {
+  display: grid;
+  gap: 14px;
+}
+
+.currency-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 16px;
+  min-height: 70px;
+}
+
+.currency-select,
+.amount-field {
+  border: 0;
+  border-radius: 17px;
+  color: var(--text);
+  background: var(--panel);
+  min-width: 0;
+  min-height: 70px;
+}
+
+.currency-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 13px;
+  cursor: pointer;
+}
+
+.currency-select.active,
+.amount-field.active {
+  background: var(--panel-strong);
+  color: color-mix(in srgb, var(--accent) 68%, white);
+}
+
+.flag {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 29px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.code {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.amount-field {
+  width: 100%;
+  text-align: right;
+  padding: 0 16px;
+  font-size: 32px;
+  font-weight: 600;
+  caret-color: var(--accent);
+  outline: 0;
+}
+
+.keypad {
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.key {
+  height: clamp(72px, 12svh, 88px);
+  border: 0;
+  border-radius: 28px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 35px;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.key:active,
+.icon-button:active,
+.currency-select:active {
+  transform: translateY(1px);
+}
+
+.key-muted {
+  background: var(--panel-soft);
+  color: #0b0b0b;
+}
+
+.key-op {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.key-zero {
+  grid-column: span 2;
+}
+
+.sheet {
+  width: min(calc(100vw - 24px), 460px);
+  max-height: 82svh;
+  border: 0;
+  border-radius: 26px 26px 0 0;
+  margin: auto auto 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.sheet::backdrop {
+  background: rgba(0, 0, 0, 0.58);
+}
+
+.sheet form {
+  padding: 18px;
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.sheet-header h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.sheet-close {
+  color: var(--text);
+  background: var(--panel);
+  font-size: 29px;
+}
+
+.currency-options,
+.choice-grid,
+.rates-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.currency-option,
+.choice-button,
+.rate-line {
+  border: 0;
+  border-radius: 14px;
+  min-height: 54px;
+  padding: 10px 12px;
+  background: var(--panel);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.currency-option span:first-child,
+.rate-line span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.choice-button.is-selected,
+.currency-option.is-selected {
+  outline: 2px solid var(--accent);
+  background: var(--panel-strong);
+}
+
+.settings-section {
+  margin-top: 18px;
+}
+
+.settings-section h3 {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 390px) {
+  .app-shell {
+    padding-top: max(14px, env(safe-area-inset-top));
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    padding-left: 14px;
+    padding-right: 14px;
+    gap: 8px;
+  }
+
+  .currency-row {
+    grid-template-columns: 114px minmax(0, 1fr);
+    gap: 12px;
+    min-height: 54px;
+  }
+
+  .currency-select,
+  .amount-field {
+    min-height: 54px;
+    border-radius: 15px;
+  }
+
+  .flag {
+    width: 34px;
+    height: 34px;
+    font-size: 24px;
+  }
+
+  .code {
+    font-size: 20px;
+  }
+
+  .amount-field {
+    font-size: 28px;
+  }
+
+  .keypad {
+    gap: 10px;
+  }
+
+  .key {
+    height: clamp(58px, 9.5svh, 66px);
+    border-radius: 20px;
+    font-size: 29px;
+  }
+}
