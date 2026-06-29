@@ -161,7 +161,7 @@ const cacheKey = "converterNeoRates";
 const prefsKey = "converterNeoPrefs";
 
 const state = {
-  rows: ["RUB", "USD", "EUR"],
+  rows: ["RUB", "USD", "VND"],
   activeIndex: 0,
   sourceIndex: 0,
   rates: fallbackRates,
