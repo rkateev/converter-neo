@@ -84,6 +84,15 @@ input {
   font: inherit;
 }
 
+button,
+.key,
+.currency-select,
+.amount-field {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
 .app-shell {
   width: min(100vw, 480px);
   min-height: 100svh;
