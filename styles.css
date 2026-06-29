@@ -300,6 +300,29 @@ input {
   gap: 10px;
 }
 
+.currency-search {
+  width: 100%;
+  min-height: 48px;
+  margin-bottom: 12px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: var(--panel);
+  color: var(--text);
+  outline: 0;
+}
+
+.currency-search:focus {
+  outline: 2px solid var(--accent);
+}
+
+.empty-state {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
 .currency-option,
 .choice-button,
 .rate-line {

@@ -1,6 +1,6 @@
-# Converter Neo
+# QuickConvo
 
-Mobile-first currency calculator with selectable currencies, cached exchange rates, offline indicator, themes, and English/Russian localization.
+Mobile-first currency calculator with 100 selectable currencies, cached exchange rates, offline indicator, themes, search, and English/Russian localization.
 
 ## Run locally
 

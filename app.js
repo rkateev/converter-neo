@@ -1,34 +1,120 @@
-const currencies = [
-  { code: "RUB", flag: "🇷🇺", names: { ru: "Российский рубль", en: "Russian ruble" } },
-  { code: "USD", flag: "🇺🇸", names: { ru: "Доллар США", en: "US dollar" } },
-  { code: "EUR", flag: "🇪🇺", names: { ru: "Евро", en: "Euro" } },
-  { code: "KZT", flag: "🇰🇿", names: { ru: "Казахстанский тенге", en: "Kazakhstani tenge" } },
-  { code: "CNY", flag: "🇨🇳", names: { ru: "Китайский юань", en: "Chinese yuan" } },
-  { code: "GBP", flag: "🇬🇧", names: { ru: "Британский фунт", en: "British pound" } },
-  { code: "TRY", flag: "🇹🇷", names: { ru: "Турецкая лира", en: "Turkish lira" } },
-  { code: "JPY", flag: "🇯🇵", names: { ru: "Японская иена", en: "Japanese yen" } },
-  { code: "AED", flag: "🇦🇪", names: { ru: "Дирхам ОАЭ", en: "UAE dirham" } },
-  { code: "GEL", flag: "🇬🇪", names: { ru: "Грузинский лари", en: "Georgian lari" } },
-];
+const currencySeed = `
+USD|🇺🇸|Доллар США|US dollar|1
+EUR|🇪🇺|Евро|Euro|0.925
+RUB|🇷🇺|Российский рубль|Russian ruble|88.5
+KZT|🇰🇿|Казахстанский тенге|Kazakhstani tenge|520.2
+CNY|🇨🇳|Китайский юань|Chinese yuan|7.25
+GBP|🇬🇧|Британский фунт|British pound|0.79
+TRY|🇹🇷|Турецкая лира|Turkish lira|32.9
+JPY|🇯🇵|Японская иена|Japanese yen|157.3
+AED|🇦🇪|Дирхам ОАЭ|UAE dirham|3.6725
+GEL|🇬🇪|Грузинский лари|Georgian lari|2.78
+CHF|🇨🇭|Швейцарский франк|Swiss franc|0.9
+CAD|🇨🇦|Канадский доллар|Canadian dollar|1.37
+AUD|🇦🇺|Австралийский доллар|Australian dollar|1.51
+NZD|🇳🇿|Новозеландский доллар|New Zealand dollar|1.65
+SEK|🇸🇪|Шведская крона|Swedish krona|10.45
+NOK|🇳🇴|Норвежская крона|Norwegian krone|10.65
+DKK|🇩🇰|Датская крона|Danish krone|6.9
+PLN|🇵🇱|Польский злотый|Polish zloty|4.02
+CZK|🇨🇿|Чешская крона|Czech koruna|22.9
+HUF|🇭🇺|Венгерский форинт|Hungarian forint|363
+RON|🇷🇴|Румынский лей|Romanian leu|4.6
+BGN|🇧🇬|Болгарский лев|Bulgarian lev|1.81
+RSD|🇷🇸|Сербский динар|Serbian dinar|108.4
+UAH|🇺🇦|Украинская гривна|Ukrainian hryvnia|40.6
+BYN|🇧🇾|Белорусский рубль|Belarusian ruble|3.27
+MDL|🇲🇩|Молдавский лей|Moldovan leu|17.7
+AMD|🇦🇲|Армянский драм|Armenian dram|388
+AZN|🇦🇿|Азербайджанский манат|Azerbaijani manat|1.7
+UZS|🇺🇿|Узбекский сум|Uzbekistani som|12650
+KGS|🇰🇬|Киргизский сом|Kyrgyzstani som|89
+TJS|🇹🇯|Таджикский сомони|Tajikistani somoni|10.7
+TMT|🇹🇲|Туркменский манат|Turkmenistani manat|3.5
+INR|🇮🇳|Индийская рупия|Indian rupee|83.4
+PKR|🇵🇰|Пакистанская рупия|Pakistani rupee|278
+BDT|🇧🇩|Бангладешская така|Bangladeshi taka|117
+LKR|🇱🇰|Шри-ланкийская рупия|Sri Lankan rupee|302
+NPR|🇳🇵|Непальская рупия|Nepalese rupee|133.5
+THB|🇹🇭|Тайский бат|Thai baht|36.7
+VND|🇻🇳|Вьетнамский донг|Vietnamese dong|25450
+IDR|🇮🇩|Индонезийская рупия|Indonesian rupiah|16250
+MYR|🇲🇾|Малайзийский ринггит|Malaysian ringgit|4.72
+SGD|🇸🇬|Сингапурский доллар|Singapore dollar|1.35
+PHP|🇵🇭|Филиппинское песо|Philippine peso|58.6
+KRW|🇰🇷|Южнокорейская вона|South Korean won|1380
+TWD|🇹🇼|Новый тайваньский доллар|New Taiwan dollar|32.4
+HKD|🇭🇰|Гонконгский доллар|Hong Kong dollar|7.81
+MNT|🇲🇳|Монгольский тугрик|Mongolian togrog|3450
+LAK|🇱🇦|Лаосский кип|Lao kip|21500
+KHR|🇰🇭|Камбоджийский риель|Cambodian riel|4100
+MMK|🇲🇲|Мьянманский кьят|Myanmar kyat|2100
+BND|🇧🇳|Брунейский доллар|Brunei dollar|1.35
+SAR|🇸🇦|Саудовский риял|Saudi riyal|3.75
+QAR|🇶🇦|Катарский риял|Qatari riyal|3.64
+KWD|🇰🇼|Кувейтский динар|Kuwaiti dinar|0.307
+BHD|🇧🇭|Бахрейнский динар|Bahraini dinar|0.376
+OMR|🇴🇲|Оманский риал|Omani rial|0.385
+JOD|🇯🇴|Иорданский динар|Jordanian dinar|0.709
+ILS|🇮🇱|Израильский шекель|Israeli new shekel|3.72
+EGP|🇪🇬|Египетский фунт|Egyptian pound|47.8
+MAD|🇲🇦|Марокканский дирхам|Moroccan dirham|9.95
+TND|🇹🇳|Тунисский динар|Tunisian dinar|3.12
+DZD|🇩🇿|Алжирский динар|Algerian dinar|134.5
+LYD|🇱🇾|Ливийский динар|Libyan dinar|4.83
+ZAR|🇿🇦|Южноафриканский рэнд|South African rand|18.2
+NGN|🇳🇬|Нигерийская найра|Nigerian naira|1500
+GHS|🇬🇭|Ганский седи|Ghanaian cedi|15.1
+KES|🇰🇪|Кенийский шиллинг|Kenyan shilling|129
+TZS|🇹🇿|Танзанийский шиллинг|Tanzanian shilling|2600
+UGX|🇺🇬|Угандийский шиллинг|Ugandan shilling|3700
+ETB|🇪🇹|Эфиопский быр|Ethiopian birr|57.5
+XOF|🌍|Западноафриканский франк CFA|West African CFA franc|607
+XAF|🌍|Центральноафриканский франк CFA|Central African CFA franc|607
+MUR|🇲🇺|Маврикийская рупия|Mauritian rupee|46.5
+SCR|🇸🇨|Сейшельская рупия|Seychellois rupee|13.8
+BWP|🇧🇼|Ботсванская пула|Botswana pula|13.6
+NAD|🇳🇦|Намибийский доллар|Namibian dollar|18.2
+ZMW|🇿🇲|Замбийская квача|Zambian kwacha|25.6
+MWK|🇲🇼|Малавийская квача|Malawian kwacha|1730
+MZN|🇲🇿|Мозамбикский метикал|Mozambican metical|63.9
+AOA|🇦🇴|Ангольская кванза|Angolan kwanza|850
+BRL|🇧🇷|Бразильский реал|Brazilian real|5.45
+MXN|🇲🇽|Мексиканское песо|Mexican peso|18.1
+ARS|🇦🇷|Аргентинское песо|Argentine peso|905
+CLP|🇨🇱|Чилийское песо|Chilean peso|940
+COP|🇨🇴|Колумбийское песо|Colombian peso|4050
+PEN|🇵🇪|Перуанский соль|Peruvian sol|3.75
+UYU|🇺🇾|Уругвайское песо|Uruguayan peso|39.5
+PYG|🇵🇾|Парагвайский гуарани|Paraguayan guarani|7500
+BOB|🇧🇴|Боливийский боливиано|Bolivian boliviano|6.91
+CRC|🇨🇷|Костариканский колон|Costa Rican colon|520
+DOP|🇩🇴|Доминиканское песо|Dominican peso|59
+GTQ|🇬🇹|Гватемальский кетсаль|Guatemalan quetzal|7.76
+HNL|🇭🇳|Гондурасская лемпира|Honduran lempira|24.7
+NIO|🇳🇮|Никарагуанская кордоба|Nicaraguan cordoba|36.8
+JMD|🇯🇲|Ямайский доллар|Jamaican dollar|156
+TTD|🇹🇹|Доллар Тринидада и Тобаго|Trinidad and Tobago dollar|6.79
+ISK|🇮🇸|Исландская крона|Icelandic krona|139
+ALL|🇦🇱|Албанский лек|Albanian lek|94
+MKD|🇲🇰|Македонский денар|Macedonian denar|56.9
+BAM|🇧🇦|Конвертируемая марка Боснии|Bosnia-Herzegovina convertible mark|1.81
+`;
 
-const fallbackRates = {
-  USD: 1,
-  EUR: 0.925,
-  RUB: 88.5,
-  KZT: 520.2,
-  CNY: 7.25,
-  GBP: 0.79,
-  TRY: 32.9,
-  JPY: 157.3,
-  AED: 3.6725,
-  GEL: 2.78,
-};
+const currencies = currencySeed.trim().split("\n").map((row) => {
+  const [code, flag, ru, en, rate] = row.split("|");
+  return { code, flag, names: { ru, en }, fallbackRate: Number(rate) };
+});
+
+const fallbackRates = Object.fromEntries(currencies.map(({ code, fallbackRate }) => [code, fallbackRate]));
 
 const i18n = {
   ru: {
-    appName: "Converter Neo",
+    appName: "QuickConvo",
     offline: "Офлайн",
     chooseCurrency: "Выберите валюту",
+    searchCurrency: "Поиск валюты",
+    noCurrencyResults: "Ничего не найдено",
     settings: "Настройки",
     theme: "Тема",
     language: "Язык",
@@ -46,9 +132,11 @@ const i18n = {
     russian: "Русский",
   },
   en: {
-    appName: "Converter Neo",
+    appName: "QuickConvo",
     offline: "Offline",
     chooseCurrency: "Choose currency",
+    searchCurrency: "Search currency",
+    noCurrencyResults: "No currencies found",
     settings: "Settings",
     theme: "Theme",
     language: "Language",
@@ -88,6 +176,7 @@ const state = {
 const currencyList = document.querySelector("#currencyList");
 const currencyDialog = document.querySelector("#currencyDialog");
 const currencyOptions = document.querySelector("#currencyOptions");
+const currencySearch = document.querySelector("#currencySearch");
 const settingsDialog = document.querySelector("#settingsDialog");
 const ratesDialog = document.querySelector("#ratesDialog");
 const themeChoices = document.querySelector("#themeChoices");
@@ -121,6 +210,7 @@ function bindEvents() {
   });
   window.addEventListener("online", refreshRates);
   window.addEventListener("offline", () => setOffline(true));
+  currencySearch.addEventListener("input", () => renderCurrencyOptions(Number(currencySearch.dataset.index), currencySearch.value));
 }
 
 async function refreshRates() {
@@ -200,8 +290,31 @@ function renderRows() {
 
 function openCurrencyPicker(index) {
   activateRow(index);
+  currencySearch.value = "";
+  currencySearch.dataset.index = String(index);
+  currencySearch.placeholder = i18n[state.prefs.language].searchCurrency;
+  renderCurrencyOptions(index, "");
+  currencyDialog.showModal();
+  requestAnimationFrame(() => currencySearch.focus({ preventScroll: true }));
+}
+
+function renderCurrencyOptions(index, query) {
+  const search = query.trim().toLowerCase();
+  const visibleCurrencies = currencies.filter((currency) => {
+    const haystack = `${currency.code} ${currency.names.ru} ${currency.names.en}`.toLowerCase();
+    return haystack.includes(search);
+  });
+
   currencyOptions.innerHTML = "";
-  currencies.forEach((currency) => {
+  if (!visibleCurrencies.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = i18n[state.prefs.language].noCurrencyResults;
+    currencyOptions.appendChild(empty);
+    return;
+  }
+
+  visibleCurrencies.forEach((currency) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `currency-option ${currency.code === state.rows[index] ? "is-selected" : ""}`;
@@ -216,7 +329,6 @@ function openCurrencyPicker(index) {
     });
     currencyOptions.appendChild(button);
   });
-  currencyDialog.showModal();
 }
 
 function activateRow(index) {
@@ -370,6 +482,9 @@ function applyLanguage() {
   document.documentElement.lang = state.prefs.language;
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     node.textContent = i18n[state.prefs.language][node.dataset.i18n];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    node.placeholder = i18n[state.prefs.language][node.dataset.i18nPlaceholder];
   });
   renderStatus();
 }
