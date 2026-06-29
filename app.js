@@ -272,7 +272,7 @@ function renderRows() {
         <span class="flag">${getCurrency(code).flag}</span>
         <span class="code">${code}</span>
       </button>
-      <input class="amount-field ${index === state.activeIndex ? "active" : ""}" inputmode="decimal" data-amount="${index}" value="0" aria-label="${code} amount" />
+      <input class="amount-field ${index === state.activeIndex ? "active" : ""}" inputmode="none" readonly data-amount="${index}" value="0" aria-label="${code} amount" />
     `;
     currencyList.appendChild(row);
   });
@@ -339,11 +339,6 @@ function activateRow(index) {
   state.expression = null;
   state.pendingOperator = null;
   updateActiveStyles();
-  requestAnimationFrame(() => {
-    const active = currencyList.querySelector(`[data-amount="${index}"]`);
-    active?.focus({ preventScroll: true });
-    active?.select();
-  });
 }
 
 function setInputFromField(input) {
